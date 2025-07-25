@@ -1,0 +1,9 @@
+.field {
+    display: flex;
+    flex-flow: row;
+    gap: var(--universal-spacing);
+}
+
+.field-input {
+    flex-grow: 1;
+}
