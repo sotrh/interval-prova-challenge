@@ -76,7 +76,7 @@ function EditField(props: EditFieldProps) {
       >
         <option value="text">Text</option>
         <option value="email">Email</option>
-        <option value="select">Select</option>
+        {/* <option value="select">Select</option> */}
       </select>
     </div>
   );

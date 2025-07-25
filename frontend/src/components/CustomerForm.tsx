@@ -1,19 +1,22 @@
 import React, { useMemo, useRef, useState } from "react";
-import { FormSchema } from "../data/form";
+import { FormSchema, FormSubmission } from "../data/form";
 import "./CustomerForm.css";
 
 export interface CustomerFormProps {
   schema: FormSchema;
+  onSubmit: (submission: FormSubmission) => void;
 }
 
-function CustomerForm({ schema }: CustomerFormProps) {
-  const [fields, setFields] = useState(schema.fields);
+function CustomerForm({ schema, onSubmit }: CustomerFormProps) {
+  const [submission, setSubmission] = useState({
+    fields: schema.fields.map((field) => ({ name: field.name, data: "" })),
+  });
   const fieldsUI = useMemo(
     () =>
-      fields.map((field, i) => {
+      schema.fields.map((field, i) => {
         let input;
         switch (field.type) {
-          case "select":
+          // case "select":
           case "textarea":
           case "email":
           case "text":
@@ -23,7 +26,8 @@ function CustomerForm({ schema }: CustomerFormProps) {
                 type={field.type}
                 name={field.name}
                 onChange={(e) => {
-
+                  submission.fields[i].data = e.target.value;
+                  setSubmission({...submission});
                 }}
               ></input>
             );
@@ -38,14 +42,21 @@ function CustomerForm({ schema }: CustomerFormProps) {
           </div>
         );
       }),
-    [fields]
+    [schema]
   );
 
   return (
     <div className="container flex-vertical">
       <h1>Customer Form</h1>
       {fieldsUI}
-      <button className="affirm-button">Submit</button>
+      <button
+        className="affirm-button"
+        onClick={() => {
+          onSubmit(submission);
+        }}
+      >
+        Submit
+      </button>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import "./App.css";
 import FormBuilder from "./components/FormBuilder";
 import CustomerForm from "./components/CustomerForm";
 import FormSubmissionList from "./components/FormSubmissionList";
+import { FormSubmission } from "./data/form";
 
 function App() {
   const handleSupportClick = () => {
@@ -10,7 +11,7 @@ function App() {
     alert("Welcome to REDO Customer Support! 🎉");
   };
 
-  const [editing, setEditing] = useState(true);
+  const [editing, setEditing] = useState(false);
 
   const [schema, setSchema] = useState({
     fields: [
@@ -20,13 +21,18 @@ function App() {
     ],
   });
 
-  const [submissions, setSubmissions] = useState([]);
+  const [submissions, setSubmissions] = useState([] as FormSubmission[]);
 
   return (
     <div className="app-container">
       {!editing && (
         <>
-          <CustomerForm schema={schema}></CustomerForm>
+          <CustomerForm
+            schema={schema}
+            onSubmit={(newSubmission) => {
+              setSubmissions([...submissions, newSubmission]);
+            }}
+          ></CustomerForm>
           <button
             className="affirm-button"
             onClick={() => {
@@ -37,17 +43,19 @@ function App() {
           </button>
         </>
       )}
+      {!editing && submissions.length > 0 && (
+        <FormSubmissionList submissions={submissions}></FormSubmissionList>
+      )}
       {editing && (
         <FormBuilder
           schema={schema}
           onSubmit={(newSchema) => {
-            setSchema({...newSchema});
+            setSchema({ ...newSchema });
             setEditing(false);
             console.log(newSchema);
           }}
         ></FormBuilder>
       )}
-      <FormSubmissionList submissions={submissions}></FormSubmissionList>
       <button onClick={handleSupportClick} className="support-button">
         REDO Customer Support
       </button>

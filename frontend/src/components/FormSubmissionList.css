@@ -1,0 +1,20 @@
+.submission {
+    display: flex;
+    flex-direction: column;
+    gap: var(--universal-spacing);
+}
+
+.submission-name {
+    font-weight: bold;
+}
+
+.submission-field {
+    display: flex;
+    flex-direction: row;
+    gap: var(--universal-spacing);
+    text-align: right;
+}
+
+.submission-data {
+    flex-grow: 1;
+}

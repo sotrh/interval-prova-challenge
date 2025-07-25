@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { FormSubmission } from "../data/form";
+import './FormSubmissionList.css';
 
 export interface FormSubmissionListProps {
   submissions: FormSubmission[];
@@ -9,11 +10,13 @@ function FormSubmissionList({ submissions }: FormSubmissionListProps) {
   const submissionUI = useMemo(
     () =>
       submissions.map((submission) => (
-        <div className="field">
-          <div>Name</div>
-          <div>{submission.name}</div>
-          <div>Response</div>
-          <div>{submission.data}</div>
+        <div className="submission">
+          {submission.fields.map((field) => (
+            <div className="submission-field">
+              <div className="submission-name">{field.name}</div>
+              <div className="submission-data">{field.data}</div>
+            </div>
+          ))}
         </div>
       )),
     [submissions]
