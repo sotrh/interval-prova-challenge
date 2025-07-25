@@ -44,7 +44,7 @@ h1, h2 {
 .affirm-button {
   background-color: black;
   color: white;
-  padding: 16px 32px;
+  padding: var(--universal-spacing);
   border: none;
   border-radius: 4px;
   font-weight: 500;

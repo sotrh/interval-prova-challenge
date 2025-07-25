@@ -1,27 +1,49 @@
-import React, { useRef } from 'react';
-import './App.css';
-import FormBuilder from './components/FormBuilder';
-import CustomerForm from './components/CustomerForm';
+import { useRef, useState } from "react";
+import "./App.css";
+import FormBuilder from "./components/FormBuilder";
+import CustomerForm from "./components/CustomerForm";
 
 function App() {
   const handleSupportClick = () => {
-    console.log('Opening REDO Customer Support...');
-    alert('Welcome to REDO Customer Support! 🎉');
+    console.log("Opening REDO Customer Support...");
+    alert("Welcome to REDO Customer Support! 🎉");
   };
 
-  const schema = useRef({ fields: [
-    {
-      name: "First Name",
-      type: "text",
-    },
-    { name: "Last Name", type: "text" },
-    { name: "Email", type: "email" },
-  ] });
+  const [editing, setEditing] = useState(true);
+
+  const [schema, setSchema] = useState({
+    fields: [
+      { name: "First Name", type: "text" },
+      { name: "Last Name", type: "text" },
+      { name: "Email", type: "email" },
+    ],
+  });
 
   return (
     <div className="app-container">
-      <CustomerForm schema={schema.current}></CustomerForm>
-      {/* <FormBuilder></FormBuilder> */}
+      {!editing && (
+        <>
+          <CustomerForm schema={schema}></CustomerForm>
+          <button
+            className="affirm-button"
+            onClick={() => {
+              setEditing(true);
+            }}
+          >
+            Edit
+          </button>
+        </>
+      )}
+      {editing && (
+        <FormBuilder
+          schema={schema}
+          onSubmit={(newSchema) => {
+            setSchema({...newSchema});
+            setEditing(false);
+            console.log(newSchema);
+          }}
+        ></FormBuilder>
+      )}
       <button onClick={handleSupportClick} className="support-button">
         REDO Customer Support
       </button>
