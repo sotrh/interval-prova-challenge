@@ -7,4 +7,7 @@ export interface FormSchema {
   fields: FormField[];
 }
 
-export interface FormSubmission {}
+export interface FormSubmission {
+  name: string;
+  data: string;
+}

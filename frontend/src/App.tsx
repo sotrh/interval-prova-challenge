@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import "./App.css";
 import FormBuilder from "./components/FormBuilder";
 import CustomerForm from "./components/CustomerForm";
+import FormSubmissionList from "./components/FormSubmissionList";
 
 function App() {
   const handleSupportClick = () => {
@@ -18,6 +19,8 @@ function App() {
       { name: "Email", type: "email" },
     ],
   });
+
+  const [submissions, setSubmissions] = useState([]);
 
   return (
     <div className="app-container">
@@ -44,6 +47,7 @@ function App() {
           }}
         ></FormBuilder>
       )}
+      <FormSubmissionList submissions={submissions}></FormSubmissionList>
       <button onClick={handleSupportClick} className="support-button">
         REDO Customer Support
       </button>
