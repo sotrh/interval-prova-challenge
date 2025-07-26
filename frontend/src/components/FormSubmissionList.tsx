@@ -21,7 +21,7 @@ function FormSubmissionList({ submissions }: FormSubmissionListProps) {
       )),
     [submissions]
   );
-  return <div className="container">{submissionUI}</div>;
+  return <div className="container flex-vertical">{submissionUI}</div>;
 }
 
 export default FormSubmissionList;
